@@ -1,0 +1,90 @@
+  .board {
+    position: relative;
+    margin-top: 13%;
+  }
+
+  img {
+    margin: auto;
+  }
+
+  .user {
+    position: absolute;
+
+    .comment {
+      p {
+        color: #fff;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .logo {
+
+    img {
+      width: 120px;
+      height: 120px;
+      border-radius: 60px;
+    }
+  }
+
+  .user1 {
+    top: -18%;
+    left: 0;
+
+    .logo {
+      background-image: url(../../assets/user.png);
+    }
+  }
+
+  .user2 {
+    top: -18%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .logo {
+      background-image: url(../../assets/user.png);
+    }
+  }
+
+  .user3 {
+    top: -18%;
+    right: 0;
+
+    .logo {
+      background-image: url(../../assets/user.png);
+    }
+  }
+
+  .user4 {
+    top: 50%;
+    transform: translateY(-50%);
+    right: -16%;
+
+    .logo {
+      background-image: url(../../assets/user.png);
+    }
+  }
+
+  .user5 {
+    right: 0;
+
+    .logo {
+      background-image: url(../../assets/user.png);
+    }
+  }
+
+  .user6 {
+    .logo {
+      background-image: url(../../assets/user.png);
+    }
+  }
+
+  .user7 {
+    left: -16%;
+    top: 50%;
+    transform: translateY(-50%);
+
+    .logo {
+      background-image: url(../../assets/user.png);
+    }
+  }

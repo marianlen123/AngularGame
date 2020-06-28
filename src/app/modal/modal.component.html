@@ -1,0 +1,32 @@
+<div role="document" class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">{{title}}</h4>
+            <button type="button" class="close" aria-label="close" (click)="activeModal.dismiss('Cross clikc')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <h5>Please Select Player!</h5>
+                <div class="userList">
+                    <select class="form-control">
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                        <option>E</option>
+                        <option>F</option>
+                        <option>G</option>
+                    </select>
+                </div>
+                <div class="weapon">
+                    <h5>Please Select Animation!</h5>
+                    <button class="btn btn-light" (click)="activeModal.close('Close click')">
+                        <img class="img-fluid" src="assets/Poo.gif" alt="">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
