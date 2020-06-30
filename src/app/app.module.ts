@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -19,7 +20,8 @@ import { UserService } from './main/user.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule
   ],
   providers: [
     NgbActiveModal,

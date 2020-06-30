@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../modal/modal.component';
@@ -7,18 +8,35 @@ declare var $: any;
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
+  animations: [
+    trigger('animateArc', [
+      // state('true', style({
+      //   left: '400px',
+      //   top: '200px'
+      // })),
+      state('false', style({
+        left: '0',
+        top: '0'
+      })),
+      transition('false => true', animate('1000ms linear', keyframes([
+        style({ left: '0', top: '200px', offset: 0 }),
+        style({ left: '200px', top: '100px', offset: 0.50 }),
+        style({ left: '400px', top: '200px', offset: 1 })
+      ]))),
+      // transition('true => false', animate('1000ms linear', keyframes([
+      //   style({ left: '400px', top: '200px', offset: 0 }),
+      //   style({ left: '200px', top: '100px', offset: 0.50 }),
+      //   style({ left: '0', top: '200px', offset: 1 })
+      // ])))
+    ])
+  ]
 })
 export class MainComponent implements OnInit {
-  @ViewChild('canvas', {static: true}) canvas: ElementRef<HTMLCanvasElement>;
-  ctx: OffscreenCanvasRenderingContext2D;
-  requestId;
-  interval;
-  imageSrc = '';
   width = $('.board').width() + 0.32 * ($('.board').width());
   height = $('.board').height() + 0.18 * $('.board').height();
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private elementRef: ElementRef) { }
 
   ngOnInit(): void {
   }
@@ -29,11 +47,13 @@ export class MainComponent implements OnInit {
     modalRef.componentInstance.title = 'Action';
     modalRef.componentInstance.users = this.users;
     modalRef.componentInstance.passSrc.subscribe((src) => {
-      $(`#${elementId}`).parent().append(`<img class="img-fluid appenedimg" src="${src}" style="
-        position: absolute;
-        left: 0;
-        transform: scale(0.7)
-      ">`);
+      var img = document.createElement("img");
+      img.setAttribute('class', 'appenedimg img-fluid');
+      img.style.position = 'absolute';
+      img.style.left = '0';
+      img.style.transform = 'scale(0.7)';
+      img.src = src;
+      document.getElementById(elementId).parentElement.appendChild(img);
     })
   }
 
@@ -47,5 +67,8 @@ export class MainComponent implements OnInit {
     new Player(7, 'assets/user.png', 'Steve')
   ]
   players = this.users;
-
+  arc: string = 'false';
+  toggleBounce(){
+    this.arc = this.arc === 'false' ? 'true' : 'false';
+  }
 }
