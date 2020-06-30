@@ -27,7 +27,7 @@
     }
   }
 
-  .user1 {
+  #user1 {
     top: -18%;
     left: 0;
 
@@ -36,7 +36,7 @@
     }
   }
 
-  .user2 {
+  #user2 {
     top: -18%;
     left: 50%;
     transform: translateX(-50%);
@@ -46,7 +46,7 @@
     }
   }
 
-  .user3 {
+  #user3 {
     top: -18%;
     right: 0;
 
@@ -55,7 +55,7 @@
     }
   }
 
-  .user4 {
+  #user4 {
     top: 50%;
     transform: translateY(-50%);
     right: -16%;
@@ -65,7 +65,7 @@
     }
   }
 
-  .user5 {
+  #user5 {
     right: 0;
 
     .logo {
@@ -73,13 +73,13 @@
     }
   }
 
-  .user6 {
+  #user6 {
     .logo {
       background-image: url(../../assets/user.png);
     }
   }
 
-  .user7 {
+  #user7 {
     left: -16%;
     top: 50%;
     transform: translateY(-50%);
@@ -88,3 +88,4 @@
       background-image: url(../../assets/user.png);
     }
   }
+

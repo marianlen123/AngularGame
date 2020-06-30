@@ -2,10 +2,10 @@
   <div class="board">
     <img class="img-fluid" src="assets/table.png" alt="Table">
     <div *ngFor="let player of players">
-      <div class="user user{{player.id}}" (click)="modal()">
-        <span class="logo">
-          <img class="img-fluid" src="{{player.featuredImage}}" alt="">
-        </span>
+      <div class="user" id="user{{player.id}}" (click)="modal($event)">
+        <div class="logo">
+          <img class="img-fluid" id="userImg{{player.id}}" src="{{player.featuredImage}}" alt="">
+        </div>
         <div class="comment">
           <p class="text-center">{{player.username}}</p>
         </div>

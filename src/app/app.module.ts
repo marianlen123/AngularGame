@@ -21,9 +21,10 @@ import { UserService } from './main/user.service';
     AppRoutingModule,
     NgbModule
   ],
-  providers: [NgbActiveModal,
-              UserService
-            ],
+  providers: [
+    NgbActiveModal,
+    UserService
+  ],
   bootstrap: [AppComponent],
   entryComponents: [MainComponent]
 })
