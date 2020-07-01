@@ -10,8 +10,8 @@
             <div class="container">
                 <h5>Please Select Player!</h5>
                 <div class="userList">
-                    <select class="form-control">
-                        <option *ngFor="let user of users">{{user.username}}</option>
+                    <select class="form-control" [(ngModel)]="selected" (ngModelChange)="onOptionsSelected()">
+                        <option *ngFor="let user of users" [ngValue]="user">{{user.username}}</option>
                     </select>
                 </div>
                 <div class="weapon">

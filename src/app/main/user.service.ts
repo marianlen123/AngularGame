@@ -4,6 +4,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserService {
+  targetId;
   constructor() { }
-  
+  getTargetId(id) {
+    this.targetId = id;
+  }
+  outTargerId() {
+    return this.targetId;
+  }
 }

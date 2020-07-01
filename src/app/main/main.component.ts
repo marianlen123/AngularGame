@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
-
+import { Component, OnInit } from '@angular/core';
+import { trigger, state, style, keyframes, transition, animate } from '@angular/animations';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../modal/modal.component';
 import { Player } from './player';
+import { UserService } from './user.service';
 declare var $: any;
 @Component({
   selector: 'app-main',
@@ -11,50 +11,56 @@ declare var $: any;
   styleUrls: ['./main.component.scss'],
   animations: [
     trigger('animateArc', [
-      // state('true', style({
-      //   left: '400px',
-      //   top: '200px'
-      // })),
-      state('false', style({
-        left: '0',
-        top: '0'
-      })),
       transition('false => true', animate('1000ms linear', keyframes([
-        style({ left: '0', top: '200px', offset: 0 }),
-        style({ left: '200px', top: '100px', offset: 0.50 }),
-        style({ left: '400px', top: '200px', offset: 1 })
+        style({ left: '0',     top: '0', offset: 0 }),
+        style({ left: '670px', top: '320px', offset: 1 })
       ]))),
-      // transition('true => false', animate('1000ms linear', keyframes([
-      //   style({ left: '400px', top: '200px', offset: 0 }),
-      //   style({ left: '200px', top: '100px', offset: 0.50 }),
-      //   style({ left: '0', top: '200px', offset: 1 })
-      // ])))
+      transition('true => false', animate('1000ms linear', keyframes([
+        style({ left: '670px', top: '320px', offset: 0 }),
+        style({ left: '0',     top: '0', offset: 1 })
+      ])))
     ])
   ]
 })
 export class MainComponent implements OnInit {
   width = $('.board').width() + 0.32 * ($('.board').width());
   height = $('.board').height() + 0.18 * $('.board').height();
-
-  constructor(private modalService: NgbModal, private elementRef: ElementRef) { }
+  targetId;
+  constructor(private modalService: NgbModal, private userService: UserService) { }
 
   ngOnInit(): void {
   }
   modal(event) {
     let elementId: string = (event.target as Element).id;
     console.log(elementId);
+    this.startId = elementId;
+    var startPositionX = parseFloat($(`#${elementId}`).parent().parent().css('left'));
+    var startPositionY = parseFloat($(`#${elementId}`).parent().parent().css('top'));      
+    var animObj = $(`#${elementId}`).parent().parent().parent().parent().find('.appenedimg');
+    animObj.removeClass("targetMove");
+    animObj.css({'display': 'block', 'left': startPositionX, 'top': startPositionY}); 
+    
+
     const modalRef = this.modalService.open(ModalComponent);
     modalRef.componentInstance.title = 'Action';
     modalRef.componentInstance.users = this.users;
     modalRef.componentInstance.passSrc.subscribe((src) => {
-      var img = document.createElement("img");
-      img.setAttribute('class', 'appenedimg img-fluid');
-      img.style.position = 'absolute';
-      img.style.left = '0';
-      img.style.transform = 'scale(0.7)';
-      img.src = src;
-      document.getElementById(elementId).parentElement.appendChild(img);
-    })
+      animObj.attr('src', src);     
+      console.log(startPositionX, startPositionY);
+      this.targetId = this.userService.outTargerId();
+      var endPositionX = parseFloat($(`#userImg${this.targetId}`).parent().parent().css('left'));
+      var endPositionY =parseFloat( $(`#userImg${this.targetId}`).parent().parent().css('top'));
+      console.log(endPositionX, endPositionY);
+      animObj.addClass("targetMove");
+      $(".targetMove").css({'left': endPositionX, 'top': endPositionY, 'transform': 'translate(-17%, -17%)scale(0.5)', 'display': 'block'});
+      setTimeout(() => {
+        $(".targetMove").attr('src', 'assets/poo2-4.gif');
+        setTimeout(() => {
+          $(".targetMove").css('display', 'none');
+          $(".targetMove").attr('src', '');
+        }, 3000);
+      }, 2000);
+    });
   }
 
   users = [
@@ -68,6 +74,9 @@ export class MainComponent implements OnInit {
   ]
   players = this.users;
   arc: string = 'false';
+  startId = '';
+  endId = '';
+
   toggleBounce(){
     this.arc = this.arc === 'false' ? 'true' : 'false';
   }
